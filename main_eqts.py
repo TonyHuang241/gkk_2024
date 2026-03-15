@@ -11,6 +11,8 @@ Author: Serhiy Kozak
 Date: November 2023
 """
 
+#%% Initialize 
+#| ### Create output folders
 #| ### Import dependencies
 import datetime, os, time, sys
 import matplotlib
@@ -27,9 +29,7 @@ from constants import *
 from model import *
 from model import optimizer as optimizer
 
-#%% Initialize 
-#| ### Create output folders
-respath = respath_root + 'test/'
+respath = respath_root + 'new_test/'
 figpath = respath + 'Figures/'
 tblpath = respath + 'Tables/'
 os.makedirs(figpath, exist_ok=True)

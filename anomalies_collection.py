@@ -15,6 +15,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy 
+import tensorflow
+import pandas_datareader
 
 datapath = 'data/Anomalies/17NOV21/NYSE/monthly/'
 
@@ -48,7 +50,7 @@ def load_anomaly_data(anom):
         frames = []
         for var in ['ret', 'dp_div', 'n']:
             df         = pd.read_csv(datapath + f"{var}3_{anom}.csv", index_col=0)
-            df.index = pd.to_datetime(df.index, format='mixed') + pd.offsets.MonthEnd(0)
+            df.index   = pd.to_datetime(df.index, format='mixed') + pd.offsets.MonthEnd(0)
             df.columns = [f"{c}_{var}" for c in df.columns]
 
             frames.append(df)
@@ -68,4 +70,4 @@ for anom, exp in anom_names.items():
     load_anomaly_data(anom)
 
 # %% Combine data
-
+# python3 -m pip install tensorflow -i https://pypi.tuna.tsinghua.edu.cn/simple
