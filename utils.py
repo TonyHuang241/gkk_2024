@@ -15,6 +15,7 @@ Date: November 2023
 import pandas as pd
 import numpy as np
 import json, yaml
+import csv
 
 
 #| ### Tables helper functions
@@ -35,11 +36,24 @@ def writefilestr(filename, text):
   with open(filename, 'w') as f:
     f.write(text)
 
-def latextable(filename, df, header=False, float_format='%.1f', na_rep='-'):
-  writefilestr(filename, df.to_csv(header=header, lineterminator='\\\\ \n', quotechar=' ',
-                                   float_format=float_format, sep='&', na_rep=na_rep))
-# index=['R', 'D/P'], columns=labels[:npc]).to_latex(col_space=10, float_format=lambda x: '%.1f' % x))
+# def latextable(filename, df, header=False, float_format='%.1f', na_rep='-'):
+#   writefilestr(filename, df.to_csv(header=header, lineterminator='\\\\ \n', # quotechar=' ',
+#                                    float_format=float_format, sep='&', na_rep=na_rep, 
+#                                    quoting=csv.QUOTE_NONE, escapechar=' '))
+# # index=['R', 'D/P'], columns=labels[:npc]).to_latex(col_space=10, float_format=lambda x: '%.1f' % x))
 
+def latextable(filename, df, header=False, float_format='%.1f', na_rep='-'):
+    content = df.to_csv(
+        header=header, 
+        lineterminator='\n',
+        float_format=float_format, 
+        sep='&', 
+        na_rep=na_rep, 
+        quoting=csv.QUOTE_NONE, 
+        escapechar='\\'
+    )
+    latex_content = content.replace('\n', '\\\\ \n')
+    writefilestr(filename, latex_content)
 
 
 #| ### Helper functions for printing
