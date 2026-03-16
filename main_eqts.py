@@ -603,7 +603,8 @@ anom_table.index = [anom_names.get(a) for a in anom_table.index]
 anom_table.sort_index(inplace=True)
 
 if len(anom_table) % 2:
-  anom_table = anom_table.append(pd.DataFrame([[np.nan]*3], index=[''], columns=anom_table.columns))
+  empty_row = pd.DataFrame([[np.nan]*3], index=[''], columns=anom_table.columns)
+  anom_table = pd.concat([anom_table, empty_row])
 mid_split = int(anom_table.shape[0]/2)
 latextable(tblpath + 'TableA3_part1.tex', 100*anom_table.iloc[:mid_split])
 latextable(tblpath + 'TableA3_part2.tex', 100*anom_table.iloc[mid_split:], na_rep='')
